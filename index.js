@@ -2,7 +2,6 @@ const express = require('express');
 const session = require('express-session');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const local = require('./strategies/local');
 const MongoStore = require('connect-mongo');
 
 
@@ -13,7 +12,7 @@ const app = express();
 
 require('dotenv').config()
 const url = process.env.URL;
-
+const SECRET = process.env.SECRET;
 
 mongoose.connect(url + 'users', {
     useNewUrlParser: true,
@@ -34,7 +33,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 app.use(session({
-    secret: "secret",
+    secret: SECRET,
     resave: true,
     store: MongoStore.create({mongoUrl: url + 'sessions'}),
     saveUninitialized: true,
@@ -62,6 +61,6 @@ app.get('/protected', isLoggedIn, async (req, res) => {
     }
 })
 
-app.listen(5000, () => {
+app.listen(4999, () => {
     console.log("Server has started!");
 })
