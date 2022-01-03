@@ -3,7 +3,7 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const MongoStore = require('connect-mongo');
-
+const local = require('./strategies/local');
 
 const authRoute = require('./routes/auth');
 const registerRoute = require('./routes/register');
